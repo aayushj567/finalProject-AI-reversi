@@ -11,7 +11,9 @@ import numpy as np
 # Class to represent a Reversi game board
 class Reversi:
     def __init__(self):
-        self.board = np.zeros((8,8), dtype=np.int)
+        self.ROWS = 8
+        self.COLUMNS = 8
+        self.board = np.zeros((self.COLUMNS, self.ROWS), dtype=int)
 
         # Filling the board's start stae. 1 = white, -1 = black
         self.board[3][3] = 1
@@ -28,13 +30,23 @@ class Reversi:
     # Function to print the board
     def printBoard(self):
         print("  0 1 2 3 4 5 6 7")
-        for i in range(8):
+        for i in range(self.ROWS):
             print(i, end=" ")
-            for j in range(8):
-                if self.board[i][j] == 1:
+            for j in range(self.COLUMNS):
+                if self.board[i][j] == 0:
+                    print(".", end=" ")
+                elif self.board[i][j] == 1:
                     print("W", end=" ")
-                elif self.board[i][j] == -1:
-                    print("B", end=" ")
                 else:
-                    print("-", end=" ")
+                    print("B", end=" ")
             print()
+
+    # Function to check if a move is valid
+    def isValid(self, row, column):
+        # check if row column specified is within the board
+        if row < 0 or row > 7 or column < 0 or column > 7:
+            return False
+
+        # if cell is ioccupied, return false as move is invalid
+        if self.board[row][column] != 0:
+            return False

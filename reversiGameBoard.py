@@ -151,6 +151,7 @@ class Reversi:
                         for j in range(column - 1, endColumn, -1):
                             i = row - 1
                             self.board[i][j] = self.board[i][j] * -1
+                            row = i
                         self.captured = True
                         break
                     
@@ -174,8 +175,9 @@ class Reversi:
                 while endRow >= 0 and endColumn < 8:
                     if self.board[endRow][endColumn] == self.currentPlayer:
                         for j in range(column + 1, endColumn):
-                            i = row + 1
+                            i = row - 1
                             self.board[i][j] = self.board[i][j] * -1
+                            row = i
                         self.captured = True
                         break
                     
@@ -200,7 +202,10 @@ class Reversi:
                     if self.board[endRow][endColumn] == self.currentPlayer:
                         for i in range(row + 1, endRow):
                             j = column - 1
+                            print(f"Value before at {i}, {j} : {self.board[i][j]}")
                             self.board[i][j] = self.board[i][j] * -1
+                            print("Value after: ", self.board[i][j])
+                            column = j
                         self.captured = True
                         break
                     
@@ -226,6 +231,7 @@ class Reversi:
                         for i in range(row + 1, endRow):
                             j = column + 1
                             self.board[i][j] = self.board[i][j] * -1
+                            column = j
                         self.captured = True
                         break
                     
@@ -270,6 +276,10 @@ class Reversi:
 
     # function to make a valid move on the board
     def makeMove(self, row, column):
+        print()
+        print(f"---------------------------------{self.getCurentPlayerString()}'s turn---------------------------------")
+        print(f"Move made at row {row} and column {column}")
+        print()
         # check if move is valid
         if not self.isValidMove(row, column):
             print("Invalid move")

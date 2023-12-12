@@ -4,7 +4,8 @@ from reversiGameBoard import *
 def main():
     gameInstance = Reversi()
     gameInstance.printBoard()
-    while not gameInstance.gameOver:
+    while not gameInstance.isGameOver():
+        print(f"---------------------------------{gameInstance.getCurentPlayerString()}'s turn---------------------------------")
         print("Enter your move below")
         row = int(input("Enter row :"))
         column = int(input("Enter column :"))

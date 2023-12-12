@@ -24,6 +24,8 @@ class Reversi:
         # setting the current player to black
         self.currentPlayer = -1
 
+        self.captured = False
+
         # setting the game over flag to false
         self.gameOver = False
     
@@ -41,6 +43,10 @@ class Reversi:
                     print("B", end=" ")
             print()
 
+    # function to switch the current player
+    def switchPlayer(self):
+        self.currentPlayer = self.currentPlayer * -1
+
     # Function to check if a move is valid
     def isValid(self, row, column):
         # check if row column specified is within the board
@@ -50,16 +56,6 @@ class Reversi:
         # if cell is ioccupied, return false as move is invalid
         if self.board[row][column] != 0:
             return False
-    
-    # function make a move on board if it is valid
-    def makeMove(self, row, column):
-        if self.isValid(row, column):
-            if self.currentPlayer == -1:
-                self.board[row][column] = -1
-                self.currentPlayer = 1
-            elif self.currentPlayer == 1:
-                self.board[row][column] = -1
-                self.currentPlayer = 1
 
     # function to capture and flip flanked pieces to the left/west of the placed piece
     def captureWest(self, row, column):
@@ -70,6 +66,7 @@ class Reversi:
                         if self.board[row][i] == self.currentPlayer:
                             for j in range(i+1, column):
                                 self.board[row][j] = self.board[row][j] * -1
+                            self.captured = True
                             break
                         elif self.board[row][i] == 0:
                             break
@@ -88,6 +85,7 @@ class Reversi:
                         if self.board[row][i] == self.currentPlayer:
                             for j in range(column + 1, i):
                                 self.board[row][j] = self.board[row][j] * -1
+                            self.captured = True
                             break
                         elif self.board[row][i] == 0:
                             break
@@ -106,6 +104,7 @@ class Reversi:
                         if self.board[i][column] == self.currentPlayer:
                             for j in range(i+1, row):
                                 self.board[j][column] = self.board[j][column] * -1
+                            self.captured = True
                             break
                         elif self.board[i][column] == 0:
                             break
@@ -124,6 +123,7 @@ class Reversi:
                         if self.board[i][column] == self.currentPlayer:
                             for j in range(row + 1, i):
                                 self.board[j][column] = self.board[j][column] * -1
+                            self.captured = True
                             break
                         elif self.board[i][column] == 0:
                             break
@@ -132,4 +132,39 @@ class Reversi:
         except Exception as e:
             print(e)
 
-    
+
+    # function to keep count of number of pieces for each player
+    def countPieces(self):
+        whiteCount = 0
+        blackCount = 0
+        for i in range(self.ROWS):
+            for j in range(self.COLUMNS):
+                if self.board[i][j] == 1:
+                    whiteCount += 1
+                elif self.board[i][j] == -1:
+                    blackCount += 1
+        return (whiteCount, blackCount)
+
+
+    # function to make a valid move on the board
+    def makeMove(self, row, column):
+        # check if move is valid
+        if not self.isValid(row, column):
+            print("Invalid move")
+            return False
+
+        whiteCountBefore, blackCountBefore = self.countPieces()
+        self.captureEast(row, column)
+        self.captureWest(row, column)
+        self.captureNorth(row, column)
+        self.captureSouth(row, column)
+
+        if self.captured:
+            self.board[row][column] = self.currentPlayer
+            self.captured = False
+            self.switchPlayer()
+
+        # check if game is over
+        self.checkGameOver()
+
+        return True

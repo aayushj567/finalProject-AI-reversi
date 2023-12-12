@@ -146,19 +146,19 @@ class Reversi:
                 endRow = row - 2
                 endColumn = column - 2
             
-            while endRow >= 0 and endColumn >= 0:
-                if self.board[endRow][endColumn] == self.currentPlayer:
-                    for j in range(column - 1, endColumn, -1):
-                        i = row - 1
-                        self.board[i][j] = self.board[i][j] * -1
-                    self.captured = True
-                    break
-                
-                elif self.board[endRow][endColumn] == 0:
-                    break
+                while endRow >= 0 and endColumn >= 0:
+                    if self.board[endRow][endColumn] == self.currentPlayer:
+                        for j in range(column - 1, endColumn, -1):
+                            i = row - 1
+                            self.board[i][j] = self.board[i][j] * -1
+                        self.captured = True
+                        break
+                    
+                    elif self.board[endRow][endColumn] == 0:
+                        break
 
-                endRow -= 1
-                endColumn -= 1
+                    endRow -= 1
+                    endColumn -= 1
         
         except Exception as f:
             print(f)
@@ -171,19 +171,19 @@ class Reversi:
                 endRow = row - 2
                 endColumn = column + 2
             
-            while endRow >= 0 and endColumn < 8:
-                if self.board[endRow][endColumn] == self.currentPlayer:
-                    for j in range(column + 1, endColumn):
-                        i = row + 1
-                        self.board[i][j] = self.board[i][j] * -1
-                    self.captured = True
-                    break
-                
-                elif self.board[endRow][endColumn] == 0:
-                    break
+                while endRow >= 0 and endColumn < 8:
+                    if self.board[endRow][endColumn] == self.currentPlayer:
+                        for j in range(column + 1, endColumn):
+                            i = row + 1
+                            self.board[i][j] = self.board[i][j] * -1
+                        self.captured = True
+                        break
+                    
+                    elif self.board[endRow][endColumn] == 0:
+                        break
 
-                endRow -= 1
-                endColumn += 1
+                    endRow -= 1
+                    endColumn += 1
         
         except Exception as f:
             print(f)
@@ -196,19 +196,19 @@ class Reversi:
                 endRow = row + 2
                 endColumn = column - 2
 
-            while endRow < 8 and endColumn >= 0:
-                if self.board[endRow][endColumn] == self.currentPlayer:
-                    for i in range(row + 1, endRow):
-                        j = column - 1
-                        self.board[i][j] = self.board[i][j] * -1
-                    self.captured = True
-                    break
-                
-                elif self.board[endRow][endColumn] == 0:
-                    break
+                while endRow < 8 and endColumn >= 0:
+                    if self.board[endRow][endColumn] == self.currentPlayer:
+                        for i in range(row + 1, endRow):
+                            j = column - 1
+                            self.board[i][j] = self.board[i][j] * -1
+                        self.captured = True
+                        break
+                    
+                    elif self.board[endRow][endColumn] == 0:
+                        break
 
-                endRow += 1
-                endColumn -= 1
+                    endRow += 1
+                    endColumn -= 1
         
         except Exception as f:
             print(f)
@@ -221,19 +221,19 @@ class Reversi:
                 endRow = row + 2
                 endColumn = column + 2
 
-            while endRow < 8 and endColumn < 8:
-                if self.board[endRow][endColumn] == self.currentPlayer:
-                    for i in range(row + 1, endRow):
-                        j = column + 1
-                        self.board[i][j] = self.board[i][j] * -1
-                    self.captured = True
-                    break
-                
-                elif self.board[endRow][endColumn] == 0:
-                    break
+                while endRow < 8 and endColumn < 8:
+                    if self.board[endRow][endColumn] == self.currentPlayer:
+                        for i in range(row + 1, endRow):
+                            j = column + 1
+                            self.board[i][j] = self.board[i][j] * -1
+                        self.captured = True
+                        break
+                    
+                    elif self.board[endRow][endColumn] == 0:
+                        break
 
-                endRow += 1
-                endColumn += 1
+                    endRow += 1
+                    endColumn += 1
 
         except Exception as f:
             print(f)

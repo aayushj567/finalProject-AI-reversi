@@ -50,3 +50,86 @@ class Reversi:
         # if cell is ioccupied, return false as move is invalid
         if self.board[row][column] != 0:
             return False
+    
+    # function make a move on board if it is valid
+    def makeMove(self, row, column):
+        if self.isValid(row, column):
+            if self.currentPlayer == -1:
+                self.board[row][column] = -1
+                self.currentPlayer = 1
+            elif self.currentPlayer == 1:
+                self.board[row][column] = -1
+                self.currentPlayer = 1
+
+    # function to capture and flip flanked pieces to the left/west of the placed piece
+    def captureWest(self, row, column):
+        try:
+            if (self.board[row][column - 1] == self.currentPlayer * -1) and (column > 1):
+                for i in range(column - 2, -1, -1): # start at two cells left, go down to 0, step count -1
+                    try:
+                        if self.board[row][i] == self.currentPlayer:
+                            for j in range(i+1, column):
+                                self.board[row][j] = self.board[row][j] * -1
+                            break
+                        elif self.board[row][i] == 0:
+                            break
+                    except Exception as f:
+                        print(f)
+        except Exception as e:
+            print(e)
+
+        
+    # function to capture and flip flanked pieces to the right/east of the placed piece
+    def captureEast(self, row, column):
+        try:
+            if (self.board[row][column + 1] == self.currentPlayer * -1) and (column < 6):
+                for i in range(column + 2, 8):
+                    try:
+                        if self.board[row][i] == self.currentPlayer:
+                            for j in range(column + 1, i):
+                                self.board[row][j] = self.board[row][j] * -1
+                            break
+                        elif self.board[row][i] == 0:
+                            break
+                    except Exception as f:
+                        print(f)
+        except Exception as e:
+            print(e)
+
+
+    # function to capture and flip flanked pieces to the top/north of the placed piece
+    def captureNorth(self, row, column):
+        try:
+            if (self.board[row - 1][column] == self.currentPlayer * -1) and (row > 1):
+                for i in range(row - 2, -1, -1):
+                    try:
+                        if self.board[i][column] == self.currentPlayer:
+                            for j in range(i+1, row):
+                                self.board[j][column] = self.board[j][column] * -1
+                            break
+                        elif self.board[i][column] == 0:
+                            break
+                    except Exception as f:
+                        print(f)
+        except Exception as e:
+            print(e)
+        
+    
+    # function to capture and flip flanked pieces to the bottom/south of the placed piece
+    def captureSouth(self, row, column):
+        try:
+            if (self.board[row + 1][column] == self.currentPlayer * -1) and (row < 6):
+                for i in range(row + 2, 8):
+                    try:
+                        if self.board[i][column] == self.currentPlayer:
+                            for j in range(row + 1, i):
+                                self.board[j][column] = self.board[j][column] * -1
+                            break
+                        elif self.board[i][column] == 0:
+                            break
+                    except Exception as f:
+                        print(f)
+        except Exception as e:
+            print(e)
+
+    
